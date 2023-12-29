@@ -96,3 +96,32 @@ testLeo.introduce();
 // see above
 
 
+///////////////////////////////
+// Part 5: Gather your Party //
+///////////////////////////////
+
+// A common approach for creating many similar objects of a single class, and keeping track of them is creating a “factory.”
+
+class AdventurerFactory {
+    constructor (role) {
+        this.role = role;
+        this.adventurers = [];
+    }
+    generate (name) {
+        const newAdventurer = new Adventurer(name, this.role);
+        this.adventurers.push(newAdventurer);
+    }
+    findByIndex(index) {
+        return this.adventurers[index];
+    }
+    findByName(name) {
+        return this.adventurers.find((a) => a.name === name);
+    }
+}
+
+const healers = new AdventurerFactory("Healer");
+const robin = healers.generate("Robin");
+
+
+///////////////////////////////
+// Part 6: Developing Skills //
