@@ -1,4 +1,6 @@
-// Part 2: Class Fantasy
+///////////////////////////
+// Part 2: Class Fantasy //
+///////////////////////////
 
 class Character {
     constructor (name) {
@@ -27,9 +29,11 @@ robin.companion.companion = new Character("Frank");
 robin.companion.companion.type = "Flea";
 robin.companion.companion,inventory = ["small hat", "sunglasses"];
 
+////////////////////////////
+// Part 3: Class Features //
+////////////////////////////
 
-// Part 3: Class Features
-
+// Create an Adventurer class
 class Adventurer extends Character {
     constructor (name, role) {
         super(name);
@@ -48,7 +52,26 @@ class Adventurer extends Character {
     }
 }
 
-// // test scout() method
-// const adventurer = new Adventurer("Robin");
-// adventurer.scout();
+// test scout() method
+const testRobin = new Adventurer("Robin", "Knight");
+testRobin.scout();
+
+// Create a Companion class
+class Companion extends Character {
+    constructor(name, type, owner) {
+        super(name);
+        this.type = type;
+        this.owner = owner;
+    }
+    /**
+     * Introduce the companion and mention the owner
+     */
+    introduce() {
+        console.log(`${this.name} (the ${this.type}) is ${this.owner.name}'s companion.`);
+    }
+}
+
+// test
+const testLeo = new Companion("Leo", "Cat", testRobin);
+testLeo.introduce();
 
