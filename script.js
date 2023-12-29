@@ -3,11 +3,13 @@
 ///////////////////////////
 
 class Character {
+    
     constructor (name) {
         this.name = name;
-        this.health = 100;
+        this.health = Character.MAX_HEALTH;
         this.inventory = [];
     }
+
     /**
      * Rolls a 20-sided die and logs the result.
      * 
@@ -17,6 +19,9 @@ class Character {
         const result = Math.floor(Math.random() * 20) + 1 + mod;
         console.log(`${this.name} rolled a ${result}.`);
     }
+
+    // Add a static MAX_HEALTH property
+    static MAX_HEALTH = 100;
 }
 
 // Recreate Robin using the Character class
@@ -35,13 +40,19 @@ robin.companion.companion,inventory = ["small hat", "sunglasses"];
 
 // Create an Adventurer class
 class Adventurer extends Character {
+    static ROLES = ["Fighter", "Healer", "Wizard"];
     constructor (name, role) {
         super(name);
         // Adventurers have specialized roles.
         this.role = role;
+        // Add a check
+        if (!Adventurer.ROLES.includes(role)) {
+            throw new Error(`Invalid role. Valid roles are: ${Adventurer.ROLES.join(',')}.`)
+        }
         // Every adventurer starts with a bed and 50 gold coins.
         this.inventory.push("bedroll", "50 gold coins");
     }
+    
     /**
      * Adventurers have the ability to scout ahead of them.
      * This method logs a message indicating that the adventurer is scouting and then invokes the 'roll' method inherited from the superclass
@@ -53,7 +64,7 @@ class Adventurer extends Character {
 }
 
 // test scout() method
-const testRobin = new Adventurer("Robin", "Knight");
+const testRobin = new Adventurer("Robin", "Fighter");
 testRobin.scout();
 
 // Create a Companion class
@@ -74,4 +85,14 @@ class Companion extends Character {
 // test
 const testLeo = new Companion("Leo", "Cat", testRobin);
 testLeo.introduce();
+
+
+////////////////////////////
+// Part 4: Class Uniforms //
+////////////////////////////
+
+// using static properties and methods to create uniform attributes (constant values or utility methods that do not rely on the values of a specific class instance)
+
+// see above
+
 
