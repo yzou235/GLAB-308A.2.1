@@ -41,6 +41,7 @@ robin.companion.companion,inventory = ["small hat", "sunglasses"];
 // Create an Adventurer class
 class Adventurer extends Character {
     static ROLES = ["Fighter", "Healer", "Wizard"];
+
     constructor (name, role) {
         super(name);
         // Adventurers have specialized roles.
@@ -60,6 +61,28 @@ class Adventurer extends Character {
     scout () {
         console.log(`${this.name} is scouting ahead...`);
         super.roll();
+    }
+
+    /**
+     * Accept an Adventurer as a parameter.
+     * Use the roll() functionality to create opposing rolls for each adventurer.
+     * Subtract 1 from the adventurer with the lower roll.
+     * Log the results of this “round” of the duel, including the rolls and current health values.
+     * Repeat this process until one of the two adventurers reaches 50 health.
+     * Log the winner of the duel: the adventurer still above 50 health.
+     * @param {Adventurer} enemy 
+     */
+    duel(opponent) {
+        while (this.health > 50 && opponent.health > 50) {
+            //create opposing rolls
+            const thisRoll = this.roll();
+            const opponentRoll = opponent.roll();
+            //compare and subtract
+            const loser = thisRoll < opponentRoll ? this : opponent;
+            loser.health --;
+        }
+        const winner = this.health > 50 ? this : opponent;
+        console.log(`The winner of this duel is ${winner.name}.`);
     }
 }
 
@@ -120,8 +143,16 @@ class AdventurerFactory {
 }
 
 const healers = new AdventurerFactory("Healer");
-const robin = healers.generate("Robin");
+const lucy = healers.generate("Lucy");
 
 
 ///////////////////////////////
 // Part 6: Developing Skills //
+///////////////////////////////
+
+// see above
+
+// test
+const aaron = new Adventurer("Aaron", "Fighter");
+const baron = new Adventurer("Baron", "Fighter");
+aaron.duel(baron);
